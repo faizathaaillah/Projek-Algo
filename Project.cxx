@@ -17,6 +17,12 @@ struct Rental
 
 Rental *head = NULL;
 
+void kembaliMenu() {
+    cout << "\nTekan enter untuk kembali ke menu...";
+    cin.ignore();
+    cin.get();
+}
+
 void tambahData()
 {
 
@@ -63,8 +69,35 @@ void tambahData()
 
     cout << "\nBooking berhasil ditambahkan!\n";
 
-    cin.ignore();
-    cin.get();
+    kembaliMenu();
+}
+
+void lihatData() {
+
+    system("clear");
+
+    if (head == NULL) {
+        cout << "Belum ada data rental!\n";
+        kembaliMenu();
+        return;
+    }
+
+    Rental *bantu = head;
+
+    cout << "===== DATA BOOKING PS =====\n";
+
+    while (bantu != NULL) {
+
+        cout << "\nID Booking      : " << bantu->id << endl;
+        cout << "Nama            : " << bantu->nama << endl;
+        cout << "Nomor Meja PS   : " << bantu->nomorMejaPS << endl;
+        cout << "Jam Main        : " << bantu->jamMain << " Jam" << endl;
+        cout << "Total Bayar     : Rp" << bantu->harga << endl;
+
+        bantu = bantu->next;
+    }
+
+    kembaliMenu();
 }
 
 int main()
@@ -99,6 +132,10 @@ int main()
             tambahData();
             break;
 
+        case 2:
+            lihatData();
+            break;
+
         case 8:
             cout << "\nProgram selesai\n";
             break;
@@ -106,9 +143,6 @@ int main()
         default:
             cout << "\nMenu tidak tersedia!";
         }
-
-        cin.ignore();
-        cin.get();
 
     } while (pilih != 8);
 
