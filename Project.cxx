@@ -1,7 +1,20 @@
 #include <iostream>
 #include <cstdlib>
+#include <cstdio>
+#include <cstring>
 
 using namespace std;
+
+struct Rental {
+    int id;
+    char nama[50];
+    int nomorMejaPS;
+    int jamMain;
+    int harga;
+    Rental *next;
+};
+
+Rental *head = NULL;
 
 int main() {
 
