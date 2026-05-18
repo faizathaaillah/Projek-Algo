@@ -100,6 +100,38 @@ void lihatData() {
     kembaliMenu();
 }
 
+void cariData() {
+    system("clear");
+    if (head == NULL) {
+        cout << "Data rental masih kosong!\n";
+        kembaliMenu();
+        return;
+    }
+    int cari;
+    bool ketemu = false;
+    cout << "Masukkan ID Booking : ";
+    cin >> cari;
+    Rental *bantu = head;
+    while (bantu != NULL) {
+        if (bantu->id == cari) {
+
+            cout << "\n===== BOOKING DITEMUKAN =====\n";
+            cout << "Nama            : " << bantu->nama << endl;
+            cout << "Nomor Meja PS   : " << bantu->nomorMejaPS << endl;
+            cout << "Jam Main        : " << bantu->jamMain << endl;
+            cout << "Total Bayar     : Rp." << bantu->harga << endl;
+
+            ketemu = true;
+        }
+        bantu = bantu->next;
+    }
+    if (!ketemu) {
+        cout << "\nBooking tidak ditemukan!\n";
+    }
+    kembaliMenu();
+}
+
+
 int main()
 {
 
@@ -134,6 +166,9 @@ int main()
 
         case 2:
             lihatData();
+            break;
+        case 3:
+            cariData();
             break;
 
         case 8:
