@@ -26,7 +26,7 @@ void kembaliMenu() {
 void tambahData()
 {
 
-    system("clear");
+    system("cls");
 
     Rental *baru = new Rental;
 
@@ -74,7 +74,7 @@ void tambahData()
 
 void lihatData() {
 
-    system("clear");
+    system("cls");
 
     if (head == NULL) {
         cout << "Belum ada data rental!\n";
@@ -101,7 +101,7 @@ void lihatData() {
 }
 
 void cariData() {
-    system("clear");
+    system("cls");
     if (head == NULL) {
         cout << "Data rental masih kosong!\n";
         kembaliMenu();
@@ -131,6 +131,111 @@ void cariData() {
     kembaliMenu();
 }
 
+void ubahData() {
+
+    system("cls");
+
+    if (head == NULL) {
+        cout << "Data rental masih kosong!\n";
+        kembaliMenu();
+        return;
+    }
+
+    int edit;
+    bool ketemu = false;
+
+    cout << "Masukkan ID Booking yang ingin diubah : ";
+    cin >> edit;
+    cin.ignore();
+
+    Rental *bantu = head;
+
+    while (bantu != NULL) {
+
+        if (bantu->id == edit) {
+
+            cout << "\n===== UBAH DATA RENTAL =====\n";
+
+            cout << "Nama Baru             : ";
+            cin.getline(bantu->nama, 50);
+
+            cout << "Nomor Meja PS Baru    : ";
+            cin >> bantu->nomorMejaPS;
+
+            cout << "Jam Main Baru         : ";
+            cin >> bantu->jamMain;
+
+            bantu->harga = bantu->jamMain * 5000;
+
+            cout << "\nData rental berhasil diubah!\n";
+
+            ketemu = true;
+        }
+
+        bantu = bantu->next;
+    }
+
+    if (!ketemu) {
+        cout << "\nBooking tidak ditemukan!\n";
+    }
+
+    kembaliMenu();
+}
+
+void hapusBooking() {
+
+    system("cls");
+
+    if (head == NULL) {
+        cout << "Data rental masih kosong!\n";
+        kembaliMenu();
+        return;
+    }
+
+    int hapus;
+
+    cout << "Masukkan ID Booking yang ingin dihapus : ";
+    cin >> hapus;
+
+    Rental *hapusNode;
+    Rental *bantu;
+
+    if (head->id == hapus) {
+
+        hapusNode = head;
+        head = head->next;
+
+        delete hapusNode;
+
+        cout << "\nBooking berhasil dihapus!\n";
+
+        kembaliMenu();
+        return;
+    }
+
+    bantu = head;
+
+    while (bantu->next != NULL && bantu->next->id != hapus) {
+        bantu = bantu->next;
+    }
+
+    if (bantu->next == NULL) {
+        cout << "\nBooking tidak ditemukan!\n";
+    }
+
+    else {
+
+        hapusNode = bantu->next;
+        bantu->next = hapusNode->next;
+
+        delete hapusNode;
+
+        cout << "\nBooking berhasil dihapus!\n";
+    }
+
+    kembaliMenu();
+}
+
 
 int main()
 {
@@ -140,7 +245,7 @@ int main()
     do
     {
 
-        system("clear");
+        system("cls");
 
         cout << "===================================";
         cout << "\n   SISTEM MANAJEMEN RENTAL PS";
@@ -167,8 +272,17 @@ int main()
         case 2:
             lihatData();
             break;
+
         case 3:
             cariData();
+            break;
+
+        case 4:
+            ubahData();
+            break;
+
+        case 5:
+            hapusBooking();
             break;
 
         case 8:
