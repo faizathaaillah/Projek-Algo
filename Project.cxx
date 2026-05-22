@@ -185,7 +185,7 @@ void hapusBooking() {
     kembaliMenu();
 }
 void sortingData() {
-    system("clear");
+    system("cls");
     if (head == NULL) {
         cout << "Data rental masih kosong!\n";
         kembaliMenu();
@@ -224,7 +224,7 @@ void sortingData() {
 }
 
 void simpanFile() {
-    system("clear");
+    system("cls");
     FILE *file;
     file = fopen("rentalps.txt", "w");
     if (file == NULL) {
@@ -273,23 +273,18 @@ int main()
 
         switch (pilih)
         {
-
         case 1:
             tambahData();
             break;
-
         case 2:
             lihatData();
             break;
-
         case 3:
             cariData();
             break;
-
         case 4:
             ubahData();
             break;
-
         case 5:
             hapusBooking();
             break;

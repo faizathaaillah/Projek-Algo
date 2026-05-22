@@ -1,0 +1,24 @@
+ID : 7
+Nama : fausta
+Nomor Meja PS : 5
+Jam Main : 1
+Total Bayar : 5000
+
+ID : 4
+Nama : uus
+Nomor Meja PS : 5
+Jam Main : 2
+Total Bayar : 10000
+
+ID : 1
+Nama : rex
+Nomor Meja PS : 3
+Jam Main : 3
+Total Bayar : 15000
+
+ID : 2
+Nama : faiz
+Nomor Meja PS : 2
+Jam Main : 4
+Total Bayar : 20000
+
