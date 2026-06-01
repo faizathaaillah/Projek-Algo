@@ -5,8 +5,7 @@
 
 using namespace std;
 
-struct Rental
-{
+struct Rental {
     int id;
     char nama[50];
     int nomorMejaPS;
@@ -23,32 +22,69 @@ void kembaliMenu() {
     cin.get();
 }
 
-void tambahData()
-{
+void resetInput() {
+    cin.clear();
+    cin.ignore(100, '\n');
+}
+
+bool cekID(int idCari) {
+    Rental *bantu = head;
+
+    while (bantu != NULL) {
+        if (bantu->id == idCari) {
+            return true;
+        }
+        bantu = bantu->next;
+    }
+    return false;
+}
+
+void tambahData() {
     system("cls");
     Rental *baru = new Rental;
     cout << "===== TAMBAH BOOKING =====\n";
+    while (true) {
     cout << "Masukkan ID Booking     : ";
-    cin >> baru->id;
+    if (!(cin >> baru->id)) {
+        cout << "ID harus berupa angka!\n";
+        resetInput();
+        continue;
+    }
+    
+    if (cekID(baru->id)) {
+        cout << "ID sudah digunakan!\n";
+        resetInput();
+        continue;
+    }
+    break;
+    }
+
     cin.ignore();
     cout << "Masukkan Nama           : ";
     cin.getline(baru->nama, 50);
+
     cout << "Nomor Meja PS           : ";
-    cin >> baru->nomorMejaPS;
+    while (!(cin >> baru->nomorMejaPS) || baru->nomorMejaPS <= 0) {
+    cout << "Nomor meja harus angka dan lebih dari 0 : ";
+    resetInput();
+    }
+
     cout << "Jam Main                : ";
-    cin >> baru->jamMain;
+    while (!(cin >> baru->jamMain) || baru->jamMain <= 0) {
+    cout << "Jam main harus lebih dari 0 : ";
+    resetInput();
+    }
+    
     baru->harga = baru->jamMain * 5000;
     baru->next = NULL;
 
-    if (head == NULL)
-    {
+    if (head == NULL) {
         head = baru;
     }
-    else
-    {
+
+    else {
         Rental *bantu = head;
-        while (bantu->next != NULL)
-        {
+        while (bantu->next != NULL) {
             bantu = bantu->next;
         }
         bantu->next = baru;
@@ -84,10 +120,15 @@ void cariData() {
         kembaliMenu();
         return;
     }
+
     int cari;
     bool ketemu = false;
     cout << "Masukkan ID Booking : ";
-    cin >> cari;
+    while (!(cin >> cari)) {
+    cout << "ID harus berupa angka! Coba lagi : ";
+    resetInput();
+    }
+
     Rental *bantu = head;
     while (bantu != NULL) {
         if (bantu->id == cari) {
@@ -113,10 +154,15 @@ void ubahData() {
         kembaliMenu();
         return;
     }
+
     int edit;
     bool ketemu = false;
     cout << "Masukkan ID Booking yang ingin diubah : ";
-    cin >> edit;
+    while (!(cin >> edit)) {
+    cout << "ID harus berupa angka! Coba lagi : ";
+    resetInput();
+    }
+
     cin.ignore();
     Rental *bantu = head;
     while (bantu != NULL) {
@@ -141,31 +187,31 @@ void ubahData() {
 }
 
 void hapusBooking() {
-
     system("cls");
-
     if (head == NULL) {
         cout << "Data rental masih kosong!\n";
         kembaliMenu();
         return;
     }
+
     int hapus;
     cout << "Masukkan ID Booking yang ingin dihapus : ";
-    cin >> hapus;
+    while (!(cin >> hapus)) {
+    cout << "ID harus berupa angka! Coba lagi : ";
+    resetInput();
+    }
+
     Rental *hapusNode;
     Rental *bantu;
     if (head->id == hapus) {
-
         hapusNode = head;
         head = head->next;
-
         delete hapusNode;
-
         cout << "\nBooking berhasil dihapus!\n";
-
         kembaliMenu();
         return;
     }
+
     bantu = head;
     while (bantu->next != NULL && bantu->next->id != hapus) {
         bantu = bantu->next;
@@ -184,6 +230,7 @@ void hapusBooking() {
 
     kembaliMenu();
 }
+
 void sortingData() {
     system("cls");
     if (head == NULL) {
@@ -225,6 +272,12 @@ void sortingData() {
 
 void simpanFile() {
     system("cls");
+    if (head == NULL) {
+    cout << "Tidak ada data untuk disimpan!\n";
+    kembaliMenu();
+    return;
+    }
+
     FILE *file;
     file = fopen("rentalps.txt", "w");
     if (file == NULL) {
